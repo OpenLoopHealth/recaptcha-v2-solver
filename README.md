@@ -13,11 +13,17 @@ You will need to adapt this program to work on other websites. This should serve
 
 ## Dependencies
 
-1. selenium
-2. pydub
-3. speech recognition
-4. ffmpeg
-5. ffmpy
+Dependencies are managed via `pipenv`. If you don't already have it, run:
+
+```
+pip install pipenv
+```
+
+To install the projects dependencies, run:
+
+```
+pipenv install
+```
 
 ## Usage
 
