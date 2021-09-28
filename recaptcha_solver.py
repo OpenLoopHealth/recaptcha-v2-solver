@@ -12,15 +12,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 
-def delay(waiting_time=5):
-    driver.implicitly_wait(waiting_time)
-
-if __name__ == "__main__":
-
-    # download latest chromedriver if not already present
-    driver = webdriver.Chrome(ChromeDriverManager().install())
-    delay()
-    driver.get("https://www.google.com/recaptcha/api2/demo")
+def recaptcha_solver(driver):
 
     frames = driver.find_elements_by_tag_name("iframe")
     recaptcha_control_frame = None
@@ -33,6 +25,7 @@ if __name__ == "__main__":
     if (not (recaptcha_control_frame and recaptcha_challenge_frame)):
         print("[ERR] Unable to find recaptcha. Abort solver.")
         exit()
+
     # switch to recaptcha frame
     frames = driver.find_elements_by_tag_name("iframe")
     driver.switch_to.frame(recaptcha_control_frame)
@@ -84,3 +77,12 @@ if __name__ == "__main__":
     driver.find_element_by_id("audio-response").send_keys(Keys.ENTER)
     driver.switch_to.default_content()
     driver.find_element_by_id("recaptcha-demo-submit").click()
+
+if __name__ == "__main__":
+
+    # download latest chromedriver if not already present
+    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver.implicitly_wait(5)
+    driver.get("https://www.google.com/recaptcha/api2/demo")
+    recaptcha_solver(driver)
+    driver.quit()
