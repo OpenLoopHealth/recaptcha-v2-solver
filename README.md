@@ -27,8 +27,19 @@ pipenv install
 
 ## Usage
 
+To verify `recaptcha_solver` works with the [demo](https://www.google.com/recaptcha/api2/demo), run:
+
 ```
 python recaptcha_solver.py
+```
+
+To use `recaptcha_solver` in a separate file:
+
+```
+import recaptcha_solver from recaptcha_solver
+
+# call the solver where needed, passing in the webdriver instance
+recaptcha_solver(driver)
 ```
 
 ## Common errors
