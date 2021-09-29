@@ -1,6 +1,7 @@
 # system libraries
 import os
 import sys
+import time
 import urllib
 
 # recaptcha libraries
@@ -32,6 +33,11 @@ def recaptcha_solver(driver):
 
     # click on checkbox to activate recaptcha
     driver.find_element_by_class_name("recaptcha-checkbox-border").click()
+    time.sleep(5)
+
+    # terminate early if verified without a challenge
+    isVerified = driver.find_element_by_class_name("rc-anchor-aria-status").get_attribute("textContent") == "You are verified"
+    if isVerified: return driver.switch_to.default_content()
 
     # switch to recaptcha audio control frame
     driver.switch_to.default_content()
@@ -76,7 +82,6 @@ def recaptcha_solver(driver):
     driver.find_element_by_id("audio-response").send_keys(key.lower())
     driver.find_element_by_id("audio-response").send_keys(Keys.ENTER)
     driver.switch_to.default_content()
-    driver.find_element_by_id("recaptcha-demo-submit").click()
 
 if __name__ == "__main__":
 
@@ -85,4 +90,4 @@ if __name__ == "__main__":
     driver.implicitly_wait(5)
     driver.get("https://www.google.com/recaptcha/api2/demo")
     recaptcha_solver(driver)
-    driver.quit()
+    driver.find_element_by_id("recaptcha-demo-submit").click()
