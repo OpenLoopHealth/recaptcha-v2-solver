@@ -36,7 +36,7 @@ python recaptcha_solver.py
 To use `recaptcha_solver` in a separate file:
 
 ```
-import recaptcha_solver from recaptcha_solver
+from recaptcha_solver import recaptcha_solver
 
 # call the solver where needed, passing in the webdriver instance
 recaptcha_solver(driver)
